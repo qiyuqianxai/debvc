@@ -1,0 +1,7 @@
+python test.py --clip_path ./sample_videos/clips/抗美援朝2 --ref_path ./sample_videos/ref/bf1 --output_path ./sample_videos/output
+
+参数：clip_path: 图片存放的文件夹（不知道为什么只能选一张图片，就只放一个）
+ref_path: 指导照片（可以放很多张，得到很多结果）
+output_path: 输出位置，会加上照片名，即输出为xxx/output_path/xxx_img_01/0000.jpg
+xxx/output_path/xxx_img_02/0000.jpg
+...

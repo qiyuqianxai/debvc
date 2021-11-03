@@ -1,0 +1,5 @@
+Collecting opencv_contrib_python
+  Downloading opencv_contrib_python-4.5.4.58-cp38-cp38-manylinux2014_x86_64.whl (66.5 MB)
+Requirement already satisfied: numpy>=1.17.3 in /opt/conda/lib/python3.8/site-packages (from opencv_contrib_python) (1.20.3)
+Installing collected packages: opencv-contrib-python
+Successfully installed opencv-contrib-python-4.5.4.58
