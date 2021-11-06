@@ -133,10 +133,10 @@ def set_args(message):
 
 
 
-user_image = '/workspace/go_proj/src/Ai_WebServer/static/algorithm/debvc/user_imgs'  # 黑白图片文件夹
-user_ref = '/workspace/go_proj/src/Ai_WebServer/static/algorithm/debvc/ref_imgs'  # 指导图片文件夹
-result_path = '/workspace/go_proj/src/Ai_WebServer/static/algorithm/debvc/res_imgs'  # 输出文件夹
-message_json = '/workspace/go_proj/src/Ai_WebServer/algorithm_utils/debvc/message.json'
+user_image = '/workspace/go_proj/src/Ai_WebServer/static/algorithm/colorImage/user_imgs'  # 黑白图片文件夹
+user_ref = '/workspace/go_proj/src/Ai_WebServer/static/algorithm/colorImage/ref_imgs'  # 指导图片文件夹
+result_path = '/workspace/go_proj/src/Ai_WebServer/static/algorithm/colorImage/res_imgs'  # 输出文件夹
+message_json = '/workspace/go_proj/src/Ai_WebServer/algorithm_utils/colorImage/message.json'
 
 
 if __name__ == '__main__':
@@ -166,24 +166,25 @@ if __name__ == '__main__':
         try:
             with open(message_json, "r", encoding="utf-8") as f:
                 message = json.load(f)
+
+            if message == last_msg:
+                print('waiting...')
+                time.sleep(1)
+                continue
+            else:
+                set_args(message)
+
+            image_path = os.path.join(user_image, opt.image)
+            ref_path = os.path.join(user_ref, opt.ref)
+            output_path = os.path.join(result_path, opt.output)
+            if os.path.exists(output_path):
+                print("debvc exist...")
+                continue
+            print('image:', image_path, ', ref:', ref_path, ', output:', output_path)
+            colorize_image(image_path, ref_path, output_path, nonlocal_net, colornet, vggnet)
+            print('colorized success')
+            last_msg = message
+            time.sleep(1)
         except Exception as e:
             print(e)
             continue
-
-        if message == last_msg:
-            print('waiting...')
-            time.sleep(1)
-            continue
-        else:
-            set_args(message)
-
-        image_path = os.path.join(user_image, opt.image)
-        ref_path = os.path.join(user_ref, opt.ref)
-        output_path = os.path.join(result_path, opt.output)
-        if os.path.exists(output_path):
-            continue
-        print('image:', image_path, ', ref:', ref_path, ', output:', output_path)
-        colorize_image(image_path, ref_path, output_path, nonlocal_net, colornet, vggnet)
-        print('colorized success')
-        last_msg = message
-        time.sleep(1)
